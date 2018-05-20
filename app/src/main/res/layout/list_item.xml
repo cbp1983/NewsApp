@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_text_view"
+        android:text="1945-05-09"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/section_text_view"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="war"
+        android:textAllCaps="true"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_text_view"
+        android:text="War in Europe is over with the fall of the Reichstag"
+        android:layout_below="@+id/date_text_view"
+        android:paddingLeft="16dp"
+        android:textSize="16sp"/>
+
+
+</RelativeLayout>

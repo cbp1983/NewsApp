@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Monkey News</string>
+    <string name="no_net">No internet connection found.</string>
+    <string name="no_results">No results found.</string>
+</resources>
