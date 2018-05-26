@@ -2,4 +2,38 @@
     <string name="app_name">Monkey News</string>
     <string name="no_net">No internet connection found.</string>
     <string name="no_results">No results found.</string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">Monkey news filters</string>
+    <string name="settings_section_label">Sections to display</string>
+    <string name="settings_section_key" translatable="false">section</string>
+    <string name="settings_section_default" translatable="false">science</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_most_recent_value</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_label">Newest</string>
+    <string name="settings_order_by_most_recent_value" translatable="false">newest</string>
+
+    <!-- Label for order-by oldest option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <!-- Label for section names [CHAR LIMIT=20] -->
+    <string name="settings_section_politics_label">Politics</string>
+    <string name="settings_section_business_label">Business</string>
+    <string name="settings_section_travel_label">Travel</string>
+    <string name="settings_section_science_label">Science</string>
+    <string name="settings_section_music_label">Music</string>
+
+    <!-- Label for section values[CHAR LIMIT=20] -->
+    <string name="settings_section_politics_value">politics</string>
+    <string name="settings_section_business_value">business</string>
+    <string name="settings_section_travel_value">travel</string>
+    <string name="settings_section_science_value">science</string>
+    <string name="settings_section_music_value">music</string>
+
 </resources>

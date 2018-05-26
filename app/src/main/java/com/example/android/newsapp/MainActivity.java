@@ -4,11 +4,15 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /** URL for monkey data from the Guardian monkey news dataset */
     private static final String GUARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search?q=monkeys&api-key=test";
+            "http://content.guardianapis.com/search";
+    // original was http://content.guardianapis.com/search?q=monkeys&api-key=test
 
     /**
      * Constant value for the monkey loader ID. We can choose any integer.
@@ -102,9 +107,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
+    // onCreateLoader instantiates and returns a new Loader for the given ID
     public Loader<List<Monkey>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
-        return new MonkeyLoader(this, GUARDIAN_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String sectionName = sharedPrefs.getString(
+                getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
+
+        String orderBy  = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value. For example, the api-key=test
+        uriBuilder.appendQueryParameter("q", "monkeys");
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("section", sectionName);
+        uriBuilder.appendQueryParameter("api-key", "test");
+
+        // Return the completed uri `http://content.guardianapis.com/search?q=monkeys&api-key=test'
+        return new MonkeyLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -130,5 +160,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<Monkey>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // This method is called whenever an item in the options menu is selected.
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
